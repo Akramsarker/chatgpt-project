@@ -1,29 +1,21 @@
 <template>
-  <div class="login">
-    <h2>Input new password</h2>
-    <div v-if="error" class="error">{{ error }}</div>
-
-    <form @submit.prevent="newPassword()">
-      <div class="password">
+  <div class="new-password-page">
+    <h1 class="heading-text">Input new password</h1>
+    <div v-if="error" class="error-message">{{ error }}</div>
+    <form class="form-section" @submit.prevent="newPassword()">
+      <div class="input-field">
         <label for="password">Password</label>
-        <input
-          id="password"
-          v-model="password"
-          type="password"
-          placeholder="password"
-        />
+        <input v-model="password" type="password" placeholder="password" />
       </div>
-      <div class="password">
-        <!-- <label for="password">Password</label> -->
+      <div class="input-field">
         <input
-          id="password"
           v-model="password1"
           type="password"
           placeholder="Retype password"
         />
       </div>
-      <button type="submit" class="btn btn-primary">Send</button>
-      <!-- <p>We will send you a reset link on your mail.</p> -->
+      <button class="btn btn-primary" type="submit">Send</button>
+      <p>We will send you a reset link on your mail.</p>
     </form>
   </div>
 </template>
@@ -69,77 +61,51 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/styles/style.scss';
-
-.login {
-  @extend %proper-height;
+.new-password-page {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
-  box-sizing: border-box;
-
-  h2 {
-    margin-bottom: 2rem;
-    font-size: 2.5rem;
+  font-family: $font-primary;
+  @include responsive(phone) {
+    height: 100%;
+    padding: 0 1rem;
   }
-  .error {
+  .heading-text {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    @include responsive(phone) {
+      font-size: 1.5rem;
+    }
+  }
+  .error-message {
     margin-bottom: 1rem;
     color: red;
     max-width: 500px;
     line-height: 1.6;
   }
-  form {
+  .form-section {
     display: flex;
     flex-direction: column;
-    padding: 4rem 8rem;
-    margin-bottom: 2rem;
-    @include responsive(phone) {
-      padding: 2rem;
-    }
+    padding: 3rem 4rem;
     border-radius: 0.5rem;
     background: white;
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
-    .email,
-    .password {
+    @include responsive(phone) {
+      padding: 1rem 2rem;
+    }
+    .input-field {
       display: flex;
       flex-direction: column;
-      text-align: left;
       margin-bottom: 1rem;
       label {
+        font-size: 1rem;
         margin-bottom: 0.5rem;
       }
     }
-    p.btn {
-      display: flex;
-      align-items: center;
-      img {
-        height: 1.5rem;
-        margin-right: 0.5rem;
-      }
-    }
-    .google {
-      color: red;
-      margin-bottom: 0;
-      margin-top: 0;
-      &:hover {
-        color: white;
-      }
-    }
-    .facebook {
-      background-color: #3a559f;
-      margin-bottom: 1rem;
-      &:hover {
-        opacity: 0.9;
-      }
-    }
-
     p {
-      a {
-        display: inline;
-        text-decoration: none;
-        color: $primary-color;
-      }
+      font-size: 0.9rem;
+      margin-top: 1rem;
     }
   }
 }
