@@ -1,41 +1,30 @@
 <template>
-  <div class="login">
-    <h2>Sign in</h2>
-    <div v-if="error" class="error">{{ error }}</div>
-
-    <form @submit.prevent="signInWithEmail">
-      <div class="email">
+  <div class="sign-in-page">
+    <h1 class="heading-text">Sign in</h1>
+    <div v-if="error" class="error-message">{{ error }}</div>
+    <form class="form-section" @submit.prevent="signInWithEmail">
+      <div class="input-field">
         <label for="email">Email</label>
-        <input id="email" v-model="email" type="email" placeholder="email" />
+        <input v-model="email" type="email" placeholder="email" />
       </div>
-      <div class="password">
+      <div class="input-field">
         <label for="password">Password</label>
-        <input
-          id="password"
-          v-model="password"
-          type="password"
-          placeholder="password"
-        />
+        <input v-model="password" type="password" placeholder="password" />
       </div>
       <button type="submit" class="btn btn-primary">Sign in</button>
-      <p>Or</p>
-
-      <p class="btn btn-tertiary google" @click="signInWithGoogle()">
-        <!-- <img src="../assets/google.webp" />  -->
+      <p class="or">Or</p>
+      <button class="btn btn-tertiary google" @click="signInWithGoogle()">
+        <!-- <img src="../assets/google.webp" /> -->
         <span>Continue with Google</span>
-      </p>
-      <p class="btn btn-primary facebook" @click="signInWithFacebook()">
+      </button>
+      <button class="btn btn-primary facebook" @click="signInWithFacebook()">
         <!-- <img src="../assets/facebook.svg" /> -->
         <span>Continue with Facebook</span>
-      </p>
-
+      </button>
       <p>
-        <router-link to="/signup">Sign up </router-link>
-        <router-link
-          style="margin-left: 1rem; color: rgba(0, 0, 0, 0.7)"
-          to="/reset-password"
-        >
-          Forgot password?</router-link
+        <nuxt-link class="nuxt-link" to="/signup">Sign up </nuxt-link>
+        <nuxt-link class="nuxt-link text-color" to="/reset-password">
+          Forgot password?</nuxt-link
         >
       </p>
     </form>
@@ -103,57 +92,55 @@ export default {
 <style lang="scss" scoped>
 @import '~/styles/style.scss';
 
-.login {
-  @extend %proper-height;
+.sign-in-page {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 2rem 0;
-  box-sizing: border-box;
-  h2 {
-    margin-bottom: 2rem;
-    font-size: 2.5rem;
+  font-family: $font-primary;
+  @include responsive(phone) {
+    height: 100%;
+    padding: 0 1rem;
   }
-  .error {
+  .heading-text {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    @include responsive(phone) {
+      font-size: 1.5rem;
+    }
+  }
+  .error-message {
     margin-bottom: 1rem;
     color: red;
     max-width: 500px;
     line-height: 1.6;
   }
-  form {
+  .form-section {
     display: flex;
     flex-direction: column;
-    padding: 4rem 8rem;
-    margin-bottom: 2rem;
-    @include responsive(phone) {
-      padding: 2rem;
-    }
+    padding: 3rem 4rem;
     border-radius: 0.5rem;
     background: white;
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
-    .email,
-    .password {
+    @include responsive(phone) {
+      padding: 2rem;
+    }
+
+    .input-field {
       display: flex;
       flex-direction: column;
-      text-align: left;
       margin-bottom: 1rem;
       label {
+        font-size: 1rem;
         margin-bottom: 0.5rem;
       }
     }
-    p.btn {
-      display: flex;
-      align-items: center;
-      img {
-        height: 1.5rem;
-        margin-right: 0.5rem;
-      }
+    .or {
+      padding: 0.5rem 0;
     }
     .google {
       color: black;
-      margin-bottom: 0;
-      margin-top: 0;
+      margin-bottom: 1rem;
       &:hover {
         color: white;
       }
@@ -167,10 +154,14 @@ export default {
     }
 
     p {
-      a {
-        display: inline;
-        text-decoration: none;
-        color: $primary-color;
+      font-size: 0.9rem;
+      text-align: center;
+      .nuxt-link {
+        color: #000000;
+      }
+      .text-color {
+        color: red;
+        margin-left: 1rem;
       }
     }
   }
