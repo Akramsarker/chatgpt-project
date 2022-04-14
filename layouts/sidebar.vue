@@ -230,6 +230,7 @@ export default {
   margin: auto;
   display: grid;
   grid-template-columns: 200px 5fr;
+  font-family: $font-primary;
   height: 100vh;
   .sidebar {
     height: 100%;
@@ -251,15 +252,14 @@ export default {
         display: flex;
         align-items: center;
         margin-bottom: 1rem;
-        font-family: $font-tertiary;
-        color: $link-text-color;
+        color: #83868b;
         padding: 12px 17px;
         border-radius: 10px;
         cursor: pointer;
         font-size: 1rem;
         transition: 0.3s;
         &:hover {
-          background-color: $color-secondary;
+          background-color: #83868b;
         }
       }
     }
@@ -269,8 +269,7 @@ export default {
       align-items: center;
       p {
         font-size: 1.2rem;
-        font-family: $font-tertiary;
-        color: $link-text-color;
+        color: #83868b;
         cursor: pointer;
       }
     }

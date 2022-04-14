@@ -194,22 +194,22 @@ export default {}
         display: flex;
         align-items: center;
         margin-bottom: 1rem;
-        color: $link-text-color;
+        color: #83868b;
       }
       .globe-link {
         display: flex;
         align-items: center;
-        color: $link-text-color;
+        color: #83868b;
         a {
-          color: $link-text-color;
+          color: #83868b;
         }
       }
     }
 
     .footer-info {
       h2 {
-        color: $main-heading-color;
-        font-size: $h2-font-size;
+        color: #16171a;
+        font-size: 1.3rem;
         margin-bottom: 2rem;
       }
 
@@ -217,7 +217,7 @@ export default {}
         font-size: 1.1rem;
         margin-bottom: 20px;
         a {
-          color: $link-text-color;
+          color: #83868b;
           transition: 0.3s;
           &:hover {
             color: #3f3c3c;

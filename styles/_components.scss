@@ -18,18 +18,18 @@
   }
 }
 .btn-primary {
-  color: $color-tertiary-hover;
-  background-color: $bg-primary;
+  color: #f8f8f8;
+  background-color: #7188f9;
   transition: all 0.3s;
 
   &:hover,
   &:active {
-    background-color: rgba($bg-primary, 0.8);
+    background-color: rgba(#7188f9, 0.8);
   }
 }
 
 .btn-secondary {
-  color: $color-gray;
+  color: #394149;
   background-color: $color-secondary;
   transition: all 0.3s;
 
@@ -47,19 +47,19 @@
 
   &:hover,
   &:active {
-    background: $color-gray;
-    color: $color-tertiary-hover;
+    background: #394149;
+    color: #f8f8f8;
   }
 }
 
 .btn-quarternary {
-  color: $color-tertiary-hover;
+  color: #f8f8f8;
   background-color: $color-quarternary;
   transition: all 0.3s;
 
   &:hover,
   &:active {
-    background-color: $color-quarternary-hover;
+    background-color: #bf6966;
   }
 }
 
