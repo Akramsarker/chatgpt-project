@@ -12,7 +12,7 @@
     outline: none;
   }
   &:disabled {
-    background-color: gray !important;
+    background-color: gray;
     color: white;
     font-weight: 500;
   }
@@ -60,18 +60,6 @@
   &:hover,
   &:active {
     background-color: #bf6966;
-  }
-}
-
-.btn-button {
-  padding: 10px 55px;
-  background: #fbfbfb;
-  font-size: 1rem;
-  border-radius: 5px;
-  border: 1px solid #e0d7d7;
-  transition: 0.3s;
-  &:hover {
-    background: #e0d7d7;
   }
 }
 
