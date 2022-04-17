@@ -150,7 +150,7 @@
       </div>
     </div>
 
-    <div class="footer-buttom">
+    <div class="footer-button">
       <div class="list-items">
         <div class="item">
           <li><a href="#">Platform</a></li>
@@ -184,7 +184,8 @@ export default {}
     grid-template-columns: repeat(auto-fit, minmax(200px, auto));
     grid-gap: 2rem;
     border-bottom: 1px solid #cccccc;
-    padding-bottom: 4rem;
+    padding: 0 2rem 4rem 2rem;
+    font-family: $font-primary;
     .footer-logo {
       h2 {
         cursor: pointer;
@@ -266,16 +267,21 @@ export default {}
     }
   }
 
-  // Footer Bottom
-  .footer-buttom {
+  // Footer Button
+  .footer-button {
     display: flex;
-    padding: 3rem 0 3rem 0;
+    padding: 3rem 2rem;
     justify-content: space-between;
     align-items: center;
-
+    @include responsive(phone) {
+      flex-direction: column;
+      padding: 1.5rem 2rem;
+    }
     .list-items {
       display: flex;
-
+      @include responsive(phone) {
+        margin-bottom: 1rem;
+      }
       .item {
         margin-right: 20px;
 
@@ -300,38 +306,6 @@ export default {}
       p {
         color: #4e5259;
         font-size: 1.1rem;
-      }
-    }
-  }
-}
-
-// Footer responsive
-@include responsive(phone) {
-  #footer-section {
-    .container {
-      text-align: center;
-      .footer-logo {
-        p,
-        .globe-link {
-          justify-content: center;
-        }
-      }
-    }
-    .footer-buttom {
-      flex-direction: column;
-      padding: 2rem 0 2rem 0;
-      .list-items {
-        margin-bottom: 2rem;
-        .item {
-          li {
-            font-size: 13px;
-          }
-        }
-      }
-      .right-side {
-        p {
-          font-size: 13px;
-        }
       }
     }
   }
