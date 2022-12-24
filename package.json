@@ -21,7 +21,8 @@
     "nuxt": "^2.15.8",
     "openai": "^3.2.1",
     "uuid": "^8.3.2",
-    "yarn": "^1.22.11"
+    "yarn": "^1.22.11",
+    "js-confetti": "^0.10.2"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.14.7",
