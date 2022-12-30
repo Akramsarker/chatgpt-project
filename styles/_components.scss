@@ -39,59 +39,39 @@
   }
 }
 
-.btn-tertiary {
-  color: black;
-  border: 1px solid black;
-  background: white;
-  transition: all 0.3s;
+// .btn-tertiary {
+//   &:hover,
+//   &:active {
 
-  &:hover,
-  &:active {
-    background: #394149;
-    color: #f8f8f8;
-  }
-}
+//   }
+// }
 
-.btn-quarternary {
-  color: #f8f8f8;
-  background-color: $color-quarternary;
-  transition: all 0.3s;
+// .btn-quarternary {
 
-  &:hover,
-  &:active {
-    background-color: #bf6966;
-  }
-}
+// }
 
-.btn-sm {
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  font-weight: 600;
-  font-size: 13px;
-  line-height: 22px;
-  font-weight: 400;
-  letter-spacing: 1px;
-}
+// .btn-sm {
+
+// }
 input[type='text'],
 input[type='number'],
 input[type='password'],
 input[type='email'] {
-  padding: 0.7rem 1rem;
-  border-radius: 0.35rem;
-  box-shadow: none;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  font-weight: 400;
-  font-size: 1rem;
-  font-family: inherit;
-  background: white;
-
+  width: 320px;
+  background-color: rgba(0, 0, 0, 0);
+  border: 0px solid #000000;
+  font-size: 16.5px;
+  color: rgb(255, 255, 255);
+  padding-bottom: 12px;
+  border-bottom-width: 1px;
+  border-bottom-color: rgba(255, 255, 255, 0.15);
+  margin-bottom: 48px;
   &:focus {
-    border: 1px solid rgba(0, 0, 0, 0.4);
     outline: none;
   }
 
   &::-webkit-input-placeholder {
-    color: rgba(0, 0, 0, 0.2);
+    color: rgba(255, 255, 255, 0.5);
   }
 }
 
