@@ -1,33 +1,37 @@
 <template>
-  <div class="sign-in-page">
-    <h1 class="heading-text">Sign in</h1>
-    <div v-if="error" class="error-message">{{ error }}</div>
-    <form class="form-section" @submit.prevent="signInWithEmail">
-      <div class="input-field">
-        <label for="email">Email</label>
-        <input v-model="email" type="email" placeholder="email" />
+  <div class="container">
+    <div class="sign-in-container">
+      <div class="anima-section">
+        <div class="avatar-card">
+          <img src="/avatar.png" alt="Avatar" />
+        </div>
+        <div class="profile-info">
+          <h1 class="friend-name">Login</h1>
+          <h2>Your personal Ai Friend</h2>
+        </div>
+        <div class="login-section">
+          <button class="m-r login-btn" @click="signInWithFacebook">
+            <svg
+              width="20"
+              fill="#000000"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 384 512"
+            >
+              <path
+                d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"
+              />
+            </svg>
+          </button>
+          <button class="login-btn" @click="signInWithGoogle">
+            <img class="google-logo" src="~/static/google.png" alt="" />
+          </button>
+        </div>
+        <div class="login-with-others">
+          <button class="sign-in-email">Continue With Email</button>
+          <p>Create Account With Email</p>
+        </div>
       </div>
-      <div class="input-field">
-        <label for="password">Password</label>
-        <input v-model="password" type="password" placeholder="password" />
-      </div>
-      <button type="submit" class="btn btn-primary">Sign in</button>
-      <p class="or">Or</p>
-      <button class="btn btn-tertiary google" @click="signInWithGoogle()">
-        <!-- <img src="../assets/google.webp" /> -->
-        <span>Continue with Google</span>
-      </button>
-      <button class="btn btn-primary facebook" @click="signInWithFacebook()">
-        <!-- <img src="../assets/facebook.svg" /> -->
-        <span>Continue with Facebook</span>
-      </button>
-      <p>
-        <nuxt-link class="nuxt-link" to="/signup">Sign up </nuxt-link>
-        <nuxt-link class="nuxt-link text-color" to="/reset-password">
-          Forgot password?</nuxt-link
-        >
-      </p>
-    </form>
+    </div>
   </div>
 </template>
 
@@ -62,7 +66,7 @@ export default {
         .auth()
         .signInWithPopup(provider)
         .then((data) => {
-          this.$router.push({ name: 'index' })
+          this.$router.push({ name: 'success' })
         })
         .catch(function () {
           this.error = 'Sorry, something went wront. Please try again'
@@ -91,77 +95,105 @@ export default {
 
 <style lang="scss" scoped>
 @import '~/styles/style.scss';
+.container {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto auto auto;
+}
 
-.sign-in-page {
+.container::before {
+  background: #0a0a0d;
+  content: '';
+  position: absolute;
+  inset: 0px;
+  z-index: -100;
+  background-image: url('~/static/header-gradient.svg'),
+    url('~/static/footer-gradient.svg');
+  background-repeat: no-repeat;
+  background-position: center top, center bottom;
+  background-size: 1400px;
+}
+
+.sign-in-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: $font-primary;
-  @include responsive(phone) {
-    height: 100%;
-    padding: 0 1rem;
-  }
-  .heading-text {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    @include responsive(phone) {
-      font-size: 1.5rem;
-    }
-  }
-  .error-message {
-    margin-bottom: 1rem;
-    color: red;
-    max-width: 500px;
-    line-height: 1.6;
-  }
-  .form-section {
-    display: flex;
-    flex-direction: column;
-    padding: 3rem 4rem;
-    border-radius: 0.5rem;
-    background: white;
-    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
-    @include responsive(phone) {
-      padding: 2rem;
-    }
-
-    .input-field {
+  margin: auto;
+  height: 100vh;
+  .anima-section {
+    text-align: center;
+    .avatar-card {
       display: flex;
-      flex-direction: column;
-      margin-bottom: 1rem;
-      label {
-        font-size: 1rem;
-        margin-bottom: 0.5rem;
+      justify-content: center;
+      align-items: center;
+      img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
       }
     }
-    .or {
-      padding: 0.5rem 0;
-    }
-    .google {
-      color: black;
-      margin-bottom: 1rem;
-      &:hover {
-        color: white;
+    .profile-info {
+      .friend-name {
+        margin-top: 2rem;
+        color: #ffffff;
+        margin-bottom: 0.8rem;
+        font-size: 33px;
+        font-weight: 600;
+        line-height: 36px;
+      }
+      h2 {
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: 400;
+        margin-top: 16px;
       }
     }
-    .facebook {
-      background-color: #3a559f;
-      margin-bottom: 1rem;
-      &:hover {
-        opacity: 0.9;
+    .login-section {
+      display: flex;
+      justify-content: center;
+      justify-items: center;
+      margin: 2.5rem 0;
+      .login-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        padding: 0.7rem;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        background: #ffffff;
+      }
+      .google-logo {
+        width: 35px;
+      }
+      .m-r {
+        margin-right: 1.5rem;
       }
     }
-
-    p {
-      font-size: 0.9rem;
-      text-align: center;
-      .nuxt-link {
-        color: #000000;
+    .login-with-others {
+      .sign-in-email {
+        background: #ffffff;
+        border-radius: 50px;
+        padding: 0.7rem 2.2rem;
+        outline: none;
+        border: none;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 22px;
+        cursor: pointer;
+        color: rgb(0, 0, 0);
       }
-      .text-color {
-        color: red;
-        margin-left: 1rem;
+      p {
+        margin-top: 1.5rem;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 22px;
+        color: rgb(255, 255, 255);
       }
     }
   }
