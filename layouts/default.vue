@@ -9,12 +9,10 @@
 <script>
 import firebase from 'firebase/app'
 import AppHeader from '~/components/app-header.vue'
-import AppFooter from '~/components/app-footer.vue'
 
 export default {
   components: {
     AppHeader,
-    AppFooter,
   },
   data() {
     return {}
@@ -43,10 +41,4 @@ export default {
 
 <style lang="scss" scoped>
 @import '~/styles/style.scss';
-.page-container {
-  max-width: 1600px;
-  margin: 0 auto;
-  min-height: calc(100vh - 70px);
-  margin-top: 70px;
-}
 </style>

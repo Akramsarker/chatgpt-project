@@ -4,13 +4,13 @@ import 'firebase/auth'
 
 // input your project credentials here
 const firebaseConfig = {
-  apiKey: 'xxxx',
-  authDomain: 'xxx.firebaseapp.com',
-  projectId: 'xx-xx',
-  storageBucket: 'xx-xxx.appspot.com',
-  messagingSenderId: '550711462248',
-  appId: '1:xxx:web:14c8b8222652935b992edd',
-  measurementId: 'G-xx',
+  apiKey: 'AIzaSyBTptwmpMPUkZMMzC4ZRcWeNHrTOUI-qvU',
+  authDomain: 'chatgpt-clone-3009d.firebaseapp.com',
+  projectId: 'chatgpt-clone-3009d',
+  storageBucket: 'chatgpt-clone-3009d.appspot.com',
+  messagingSenderId: '930372337823',
+  appId: '1:930372337823:web:7561d45bc36f0fa946e2aa',
+  measurementId: 'G-ZVZ1LT4MXN',
 }
 
 if (!firebase.apps.length) {

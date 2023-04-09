@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <nav class="navbar" :style="{ boxShadow: shadow }">
     <div class="container">
       <div class="nav-logo">
@@ -116,4 +116,4 @@ export default {
     }
   }
 }
-</style>
+</style> -->
