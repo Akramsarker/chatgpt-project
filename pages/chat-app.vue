@@ -61,7 +61,7 @@ export default {
       isLoading: false,
       openAi: new OpenAIApi(
         new Configuration({
-          apiKey: `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`,
+          apiKey: `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`,
         })
       ),
     }
