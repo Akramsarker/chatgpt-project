@@ -1,15 +1,27 @@
 <template>
-  <div class="reset-password-page">
-    <h1 class="heading-text">Reset password</h1>
-    <div v-if="error" class="error-message">{{ error }}</div>
-    <form class="form-section" @submit.prevent="resetPassword()">
-      <div class="input-field">
-        <label for="email">Email</label>
-        <input v-model="email" type="email" placeholder="Enter your email" />
+  <div class="container">
+    <div class="sign-in-container">
+      <p v-if="error" class="error-message">
+        {{ error }}
+      </p>
+      <div class="anima-section">
+        <div class="avatar-card">
+          <img src="~/static/avatar.png" alt="Avatar" />
+        </div>
+        <div class="sign-up-header">
+          <h1 class="header-name">Enter email</h1>
+          <p>Please enter the email that you used to sign up</p>
+        </div>
+        <div class="sign-in-field">
+          <div class="input-field">
+            <input v-model="email" type="email" placeholder="Email" />
+          </div>
+        </div>
+        <div class="sign-in-btn">
+          <button class="sign-in" @click="resetPassword">Next</button>
+        </div>
       </div>
-      <button class="btn btn-primary" type="submit">Send</button>
-      <p>We will send you a reset link on your mail.</p>
-    </form>
+    </div>
   </div>
 </template>
 
@@ -34,8 +46,7 @@ export default {
         })
         .then(() => {
           alert('Password reset email sent!')
-          this.$router.replace({ name: 'signin' })
-          // console.log(response)
+          this.$router.replace({ name: 'new-password' })
         })
         .catch((error) => {
           this.error = error.message
@@ -47,51 +58,81 @@ export default {
 
 <style lang="scss" scoped>
 @import '~/styles/style.scss';
-.reset-password-page {
+.container {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto auto auto;
+}
+
+.container::before {
+  background: #0a0a0d;
+  content: '';
+  position: absolute;
+  inset: 0px;
+  z-index: -100;
+  background-image: url('~/static/header-gradient.svg'),
+    url('~/static/footer-gradient.svg');
+  background-repeat: no-repeat;
+  background-position: center top, center bottom;
+  background-size: 1400px;
+}
+
+.sign-in-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: $font-primary;
-  @include responsive(phone) {
-    height: 100%;
-    padding: 0 1rem;
-  }
-  .heading-text {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    @include responsive(phone) {
-      font-size: 1.5rem;
-    }
-  }
+  margin: auto;
+  height: 100vh;
   .error-message {
-    margin-bottom: 1rem;
+    font-size: 1rem;
     color: red;
-    max-width: 500px;
-    line-height: 1.6;
+    padding-bottom: 1rem;
   }
-  .form-section {
-    display: flex;
-    flex-direction: column;
-    padding: 3rem 4rem;
-    border-radius: 0.5rem;
-    background: white;
-    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
-    @include responsive(phone) {
-      padding: 1rem 2rem;
-    }
-    .input-field {
+  .anima-section {
+    text-align: center;
+    .avatar-card {
       display: flex;
-      flex-direction: column;
-      margin-bottom: 1rem;
-      label {
-        font-size: 1rem;
-        margin-bottom: 0.5rem;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 2rem;
+      img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
       }
     }
-    p {
-      font-size: 0.9rem;
-      margin-top: 1rem;
+    .sign-up-header {
+      .header-name {
+        line-height: 36px;
+        font-weight: 600;
+        font-size: 33px;
+        color: rgb(255, 255, 255);
+      }
+      p {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 19.2px;
+        margin-top: 16px;
+        margin-bottom: 4rem;
+        color: rgb(255, 255, 255);
+      }
+    }
+    .sign-in-btn {
+      .sign-in {
+        background-color: rgb(255, 255, 255);
+        border-radius: 50px;
+        padding: 0.7rem 2.2rem;
+        outline: none;
+        border: none;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 22px;
+        cursor: pointer;
+        opacity: 0.5;
+        color: rgb(0, 0, 0);
+      }
     }
   }
 }
