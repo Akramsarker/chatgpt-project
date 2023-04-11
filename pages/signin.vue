@@ -27,8 +27,16 @@
           </button>
         </div>
         <div class="login-with-others">
-          <button class="sign-in-email">Continue With Email</button>
-          <p>Create Account With Email</p>
+          <div class="sign-in-link">
+            <nuxt-link to="/sign-in" class="sign-in-email"
+              >Continue With Email</nuxt-link
+            >
+          </div>
+          <div class="router-link-btn">
+            <nuxt-link class="router-link" to="/signup"
+              >Create Account With Email</nuxt-link
+            >
+          </div>
         </div>
       </div>
     </div>
@@ -36,6 +44,7 @@
 </template>
 
 <script>
+import JSConfetti from 'js-confetti'
 import firebase from 'firebase/app'
 export default {
   data() {
@@ -67,6 +76,7 @@ export default {
         .signInWithPopup(provider)
         .then((data) => {
           this.$router.push({ name: 'success' })
+          this.confetty()
         })
         .catch(function () {
           this.error = 'Sorry, something went wront. Please try again'
@@ -88,6 +98,50 @@ export default {
           // Handle Errors here.
           this.error = 'Sorry, something went wront. Please try again'
         })
+    },
+    confetty() {
+      const confetti = new JSConfetti()
+      confetti.addConfetti({
+        // emojis: [
+        //   '🌈',
+        //   '⚡️',
+        //   '💥',
+        //   '✨',
+        //   '💫',
+        //   '🌸',
+        //   '🌾',
+        //   '🌻',
+        //   '🌟',
+        //   '♥️',
+        //   '💐',
+        //   '🌷',
+        //   '🌹',
+        //   '🌱',
+        //   '🌿',
+        //   '☘️',
+        //   '🍀',
+        // ],
+        confettiColors: [
+          '#ff0a54',
+          '#f51966',
+          '#ff477e',
+          '#ff7e7e',
+          '#ff7096',
+          '#22c10d',
+          '#00ff83',
+          '#ff85a1',
+          '#0d32e8',
+          '#f6ff00',
+          '#fbb1bd',
+          '#f9bec7',
+          '#800080',
+          '#F0F8FF',
+          '#0000FF',
+          '#a546cb',
+        ],
+        confettiNumber: 500,
+        emojiSize: 100,
+      })
     },
   },
 }
@@ -176,24 +230,29 @@ export default {
       }
     }
     .login-with-others {
-      .sign-in-email {
-        background: #ffffff;
-        border-radius: 50px;
-        padding: 0.7rem 2.2rem;
-        outline: none;
-        border: none;
-        font-size: 18px;
-        font-weight: 700;
-        line-height: 22px;
-        cursor: pointer;
-        color: rgb(0, 0, 0);
+      .sign-in-link {
+        .sign-in-email {
+          background: #ffffff;
+          border-radius: 50px;
+          padding: 0.7rem 2.2rem;
+          outline: none;
+          border: none;
+          font-size: 18px;
+          font-weight: 700;
+          line-height: 22px;
+          cursor: pointer;
+          color: rgb(0, 0, 0);
+        }
       }
-      p {
-        margin-top: 1.5rem;
-        font-size: 18px;
-        font-weight: 600;
-        line-height: 22px;
-        color: rgb(255, 255, 255);
+
+      .router-link-btn {
+        margin-top: 1.7rem;
+        .router-link {
+          font-size: 18px;
+          font-weight: 600;
+          line-height: 22px;
+          color: rgb(255, 255, 255);
+        }
       }
     }
   }
