@@ -16,6 +16,8 @@
 
 <script>
 import { OpenAIApi, Configuration } from 'openai'
+import firebase from 'firebase/app'
+
 export default {
   data() {
     return {
@@ -33,6 +35,9 @@ export default {
     user() {
       return this.$store.state.user
     },
+  },
+  mounted() {
+    this.signOut()
   },
   methods: {
     chat() {
@@ -55,6 +60,16 @@ export default {
           })
         })
       this.userMessage = ''
+    },
+    signOut() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.$router.push({ name: 'signin' })
+        })
+        // eslint-disable-next-line no-console
+        .catch((error) => console.log(error))
     },
   },
 }
