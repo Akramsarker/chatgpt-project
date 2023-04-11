@@ -1,22 +1,41 @@
 <template>
-  <div class="new-password-page">
-    <h1 class="heading-text">Input new password</h1>
-    <div v-if="error" class="error-message">{{ error }}</div>
-    <form class="form-section" @submit.prevent="newPassword()">
-      <div class="input-field">
-        <label for="password">Password</label>
-        <input v-model="password" type="password" placeholder="password" />
+  <div class="container">
+    <div class="sign-in-container">
+      <p v-if="error" class="error-message">
+        {{ error }}
+      </p>
+      <div class="anima-section">
+        <div class="avatar-card">
+          <img src="~/static/avatar.png" alt="Avatar" />
+        </div>
+        <div class="sign-up-header">
+          <h1 class="header-name">Enter new password</h1>
+          <p>
+            Please enter a new password that you <br />
+            want to use for your account
+          </p>
+        </div>
+        <div class="sign-in-field">
+          <div class="input-field">
+            <input
+              v-model="password"
+              type="password"
+              placeholder="Enter your new password"
+            />
+          </div>
+          <div class="input-field">
+            <input
+              v-model="repeatPassword"
+              type="password"
+              placeholder="Repeat your new password"
+            />
+          </div>
+        </div>
+        <div class="sign-in-btn">
+          <button class="sign-in" @click="newPassword">Next</button>
+        </div>
       </div>
-      <div class="input-field">
-        <input
-          v-model="password1"
-          type="password"
-          placeholder="Retype password"
-        />
-      </div>
-      <button class="btn btn-primary" type="submit">Send</button>
-      <p>We will send you a reset link on your mail.</p>
-    </form>
+    </div>
   </div>
 </template>
 
@@ -26,7 +45,7 @@ export default {
   data() {
     return {
       password: '',
-      password1: '',
+      repeatPassword: '',
       error: '',
     }
   },
@@ -46,12 +65,12 @@ export default {
       }
     },
     checkPassword() {
-      if (this.password === this.password1) {
+      if (this.password === this.repeatPassword) {
         return true
       } else {
         this.error = 'Please input same password'
         this.password = ''
-        this.password1 = ''
+        this.repeatPassword = ''
         return false
       }
     },
@@ -60,52 +79,82 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/style.scss';
-.new-password-page {
+@import '~/styles/style.scss';
+.container {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto auto auto;
+}
+
+.container::before {
+  background: #0a0a0d;
+  content: '';
+  position: absolute;
+  inset: 0px;
+  z-index: -100;
+  background-image: url('~/static/header-gradient.svg'),
+    url('~/static/footer-gradient.svg');
+  background-repeat: no-repeat;
+  background-position: center top, center bottom;
+  background-size: 1400px;
+}
+
+.sign-in-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: $font-primary;
-  @include responsive(phone) {
-    height: 100%;
-    padding: 0 1rem;
-  }
-  .heading-text {
-    margin-bottom: 2rem;
-    font-size: 2rem;
-    @include responsive(phone) {
-      font-size: 1.5rem;
-    }
-  }
+  margin: auto;
+  height: 100vh;
   .error-message {
-    margin-bottom: 1rem;
+    font-size: 1rem;
     color: red;
-    max-width: 500px;
-    line-height: 1.6;
+    padding-bottom: 1rem;
   }
-  .form-section {
-    display: flex;
-    flex-direction: column;
-    padding: 3rem 4rem;
-    border-radius: 0.5rem;
-    background: white;
-    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
-    @include responsive(phone) {
-      padding: 1rem 2rem;
-    }
-    .input-field {
+  .anima-section {
+    text-align: center;
+    .avatar-card {
       display: flex;
-      flex-direction: column;
-      margin-bottom: 1rem;
-      label {
-        font-size: 1rem;
-        margin-bottom: 0.5rem;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 2rem;
+      img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
       }
     }
-    p {
-      font-size: 0.9rem;
-      margin-top: 1rem;
+    .sign-up-header {
+      .header-name {
+        line-height: 36px;
+        font-weight: 600;
+        font-size: 33px;
+        color: rgb(255, 255, 255);
+      }
+      p {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 19.2px;
+        margin-top: 16px;
+        margin-bottom: 4rem;
+        color: rgb(255, 255, 255);
+      }
+    }
+    .sign-in-btn {
+      .sign-in {
+        background-color: rgb(255, 255, 255);
+        border-radius: 50px;
+        padding: 0.7rem 2.2rem;
+        outline: none;
+        border: none;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 22px;
+        cursor: pointer;
+        opacity: 0.5;
+        color: rgb(0, 0, 0);
+      }
     }
   }
 }
