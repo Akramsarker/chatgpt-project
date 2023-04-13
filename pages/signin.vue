@@ -1,13 +1,39 @@
 <template>
   <div class="container">
     <div class="sign-in-container">
-      <div class="anima-section">
+      <p v-if="error" class="error-message">
+        {{ error }}
+      </p>
+      <div class="sign-in-section">
         <div class="avatar-card">
-          <img src="/avatar.png" alt="Avatar" />
+          <img
+            src="https://deejayfarm.com/wp-content/uploads/2019/10/Profile-pic.jpg"
+            alt="Avatar"
+          />
         </div>
         <div class="profile-info">
           <h1 class="friend-name">Login</h1>
-          <h2>Your personal Ai Friend</h2>
+        </div>
+        <div class="sign-in-field">
+          <div class="input-field">
+            <input v-model="email" type="email" placeholder="Email" />
+          </div>
+          <div class="input-field">
+            <input
+              v-model="password"
+              class="mb-1"
+              type="password"
+              placeholder="Password"
+            />
+          </div>
+        </div>
+        <div class="forget-link-btn">
+          <div></div>
+          <div>
+            <nuxt-link class="forget-router-link" to="/reset-password"
+              >Forget Password?</nuxt-link
+            >
+          </div>
         </div>
         <div class="login-section">
           <button class="m-r login-btn" @click="signInWithFacebook">
@@ -27,10 +53,14 @@
           </button>
         </div>
         <div class="login-with-others">
-          <div class="sign-in-link">
-            <nuxt-link to="/sign-in" class="sign-in-email"
-              >Continue With Email</nuxt-link
+          <div class="sign-in-button">
+            <button
+              class="btn-primary"
+              :disabled="email == '' || password == ''"
+              @click="signInWithEmail"
             >
+              Log In
+            </button>
           </div>
           <div class="router-link-btn">
             <nuxt-link class="router-link" to="/signup"
@@ -62,7 +92,8 @@ export default {
         .then((data) => {
           const email = data.user.email
           this.$store.commit('setUserEmail', email)
-          this.$router.push({ name: 'index' })
+          this.$router.push({ name: 'success' })
+          this.confetty()
         })
         .catch(() => {
           this.error =
@@ -154,6 +185,7 @@ export default {
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto auto auto;
+  font-family: $font-primary;
 }
 
 .container::before {
@@ -168,6 +200,11 @@ export default {
   background-position: center top, center bottom;
   background-size: 1400px;
 }
+.error-message {
+  font-size: 14px;
+  color: red;
+  padding-bottom: 1rem;
+}
 
 .sign-in-container {
   display: flex;
@@ -176,8 +213,14 @@ export default {
   align-items: center;
   margin: auto;
   height: 100vh;
-  .anima-section {
+  .sign-in-section {
     text-align: center;
+    .sign-in-field {
+      margin-bottom: 0;
+      .mb-1 {
+        margin-bottom: 1rem;
+      }
+    }
     .avatar-card {
       display: flex;
       justify-content: center;
@@ -190,11 +233,11 @@ export default {
     }
     .profile-info {
       .friend-name {
-        margin-top: 2rem;
+        margin-top: 1.2rem;
         color: #ffffff;
         margin-bottom: 0.8rem;
         font-size: 33px;
-        font-weight: 600;
+        font-weight: 500;
         line-height: 36px;
       }
       h2 {
@@ -204,11 +247,23 @@ export default {
         margin-top: 16px;
       }
     }
+    .forget-link-btn {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-bottom: 1.7rem;
+      .forget-router-link {
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 22px;
+        color: rgba(255, 255, 255, 0.5);
+      }
+    }
     .login-section {
       display: flex;
       justify-content: center;
       justify-items: center;
-      margin: 2.5rem 0;
+      margin: 0 0 2.1rem 0;
       .login-btn {
         display: flex;
         justify-content: center;
@@ -230,21 +285,6 @@ export default {
       }
     }
     .login-with-others {
-      .sign-in-link {
-        .sign-in-email {
-          background: #ffffff;
-          border-radius: 50px;
-          padding: 0.7rem 2.2rem;
-          outline: none;
-          border: none;
-          font-size: 18px;
-          font-weight: 700;
-          line-height: 22px;
-          cursor: pointer;
-          color: rgb(0, 0, 0);
-        }
-      }
-
       .router-link-btn {
         margin-top: 1.7rem;
         .router-link {
@@ -252,6 +292,11 @@ export default {
           font-weight: 600;
           line-height: 22px;
           color: rgb(255, 255, 255);
+          transition: all 0.3s;
+          &:hover {
+            color: rgb(255, 255, 255);
+            opacity: 0.7;
+          }
         }
       }
     }

@@ -1,38 +1,41 @@
 <template>
   <div class="container">
-    <div class="sign-in-container">
+    <div class="new-password-container">
       <p v-if="error" class="error-message">
         {{ error }}
       </p>
-      <div class="anima-section">
+      <div class="new-password-section">
         <div class="avatar-card">
-          <img src="~/static/avatar.png" alt="Avatar" />
+          <img
+            src="https://deejayfarm.com/wp-content/uploads/2019/10/Profile-pic.jpg"
+            alt="Avatar"
+          />
         </div>
-        <div class="sign-up-header">
+        <div class="new-password-info">
           <h1 class="header-name">Enter new password</h1>
           <p>
             Please enter a new password that you <br />
             want to use for your account
           </p>
         </div>
-        <div class="sign-in-field">
+        <div class="new-password-field">
           <div class="input-field">
             <input
               v-model="password"
               type="password"
-              placeholder="Enter your new password"
+              placeholder="Enter Your New Password"
             />
           </div>
           <div class="input-field">
             <input
               v-model="repeatPassword"
               type="password"
-              placeholder="Repeat your new password"
+              placeholder="Repeat Your New Password"
             />
           </div>
         </div>
-        <div class="sign-in-btn">
-          <button class="sign-in" @click="newPassword">Next</button>
+        <div class="new-password-btn">
+          <button class="btn-primary" @click="newPassword">Next</button>
         </div>
       </div>
     </div>
@@ -68,7 +71,7 @@ export default {
       if (this.password === this.repeatPassword) {
         return true
       } else {
-        this.error = 'Please input same password'
+        this.error = 'Please Input Same Password'
         this.password = ''
         this.repeatPassword = ''
         return false
@@ -85,6 +88,7 @@ export default {
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto auto auto;
+  font-family: $font-primary;
 }
 
 .container::before {
@@ -100,7 +104,7 @@ export default {
   background-size: 1400px;
 }
 
-.sign-in-container {
+.new-password-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -112,7 +116,7 @@ export default {
     color: red;
     padding-bottom: 1rem;
   }
-  .anima-section {
+  .new-password-section {
     text-align: center;
     .avatar-card {
       display: flex;
@@ -125,7 +129,7 @@ export default {
         border-radius: 50%;
       }
     }
-    .sign-up-header {
+    .new-password-info {
       .header-name {
         line-height: 36px;
         font-weight: 600;
@@ -135,25 +139,10 @@ export default {
       p {
         font-size: 16px;
         font-weight: 400;
-        line-height: 19.2px;
+        line-height: 22px;
         margin-top: 16px;
         margin-bottom: 4rem;
         color: rgb(255, 255, 255);
-      }
-    }
-    .sign-in-btn {
-      .sign-in {
-        background-color: rgb(255, 255, 255);
-        border-radius: 50px;
-        padding: 0.7rem 2.2rem;
-        outline: none;
-        border: none;
-        font-size: 18px;
-        font-weight: 700;
-        line-height: 22px;
-        cursor: pointer;
-        opacity: 0.5;
-        color: rgb(0, 0, 0);
       }
     }
   }
