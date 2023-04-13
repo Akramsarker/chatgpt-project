@@ -3,7 +3,18 @@
     <div class="main">
       <div class="chat-visualizer">
         <div class="visualizer">
-          <img class="profile-image" :src="user.photoURL" alt="" />
+          <img
+            v-if="user.photoURL"
+            class="profile-image"
+            :src="user.photoURL"
+            alt=""
+          />
+          <img
+            v-else
+            class="profile-image"
+            src="https://deejayfarm.com/wp-content/uploads/2019/10/Profile-pic.jpg"
+            alt="Avatar"
+          />
         </div>
       </div>
       <div class="chatting-section">
@@ -68,7 +79,7 @@ export default {
   },
   computed: {
     user() {
-      return this.$store.state.user
+      return this.$store.state.user || {}
     },
   },
   methods: {
@@ -129,8 +140,8 @@ export default {
   .chat-visualizer {
     box-shadow: #0b0b18 0px 0px 30px 35px;
     width: 85%;
-    // background: #0B0B18;
-    // position: relative;
+    background: #0b0b18;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
