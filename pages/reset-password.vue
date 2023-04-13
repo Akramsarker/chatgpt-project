@@ -1,24 +1,27 @@
 <template>
   <div class="container">
-    <div class="sign-in-container">
+    <div class="reset-page-container">
       <p v-if="error" class="error-message">
         {{ error }}
       </p>
-      <div class="anima-section">
+      <div class="reset-section">
         <div class="avatar-card">
-          <img src="~/static/avatar.png" alt="Avatar" />
+          <img
+            src="https://deejayfarm.com/wp-content/uploads/2019/10/Profile-pic.jpg"
+            alt="Avatar"
+          />
         </div>
-        <div class="sign-up-header">
+        <div class="reset-info">
           <h1 class="header-name">Enter email</h1>
           <p>Please enter the email that you used to sign up</p>
         </div>
-        <div class="sign-in-field">
+        <div class="reset-field">
           <div class="input-field">
             <input v-model="email" type="email" placeholder="Email" />
           </div>
         </div>
-        <div class="sign-in-btn">
-          <button class="sign-in" @click="resetPassword">Next</button>
+        <div class="reset-in-btn">
+          <button class="btn-primary" @click="resetPassword">Next</button>
         </div>
       </div>
     </div>
@@ -63,6 +66,7 @@ export default {
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto auto auto;
+  font-family: $font-primary;
 }
 
 .container::before {
@@ -78,7 +82,7 @@ export default {
   background-size: 1400px;
 }
 
-.sign-in-container {
+.reset-page-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -90,7 +94,7 @@ export default {
     color: red;
     padding-bottom: 1rem;
   }
-  .anima-section {
+  .reset-section {
     text-align: center;
     .avatar-card {
       display: flex;
@@ -103,7 +107,7 @@ export default {
         border-radius: 50%;
       }
     }
-    .sign-up-header {
+    .reset-info {
       .header-name {
         line-height: 36px;
         font-weight: 600;
@@ -117,21 +121,6 @@ export default {
         margin-top: 16px;
         margin-bottom: 4rem;
         color: rgb(255, 255, 255);
-      }
-    }
-    .sign-in-btn {
-      .sign-in {
-        background-color: rgb(255, 255, 255);
-        border-radius: 50px;
-        padding: 0.7rem 2.2rem;
-        outline: none;
-        border: none;
-        font-size: 18px;
-        font-weight: 700;
-        line-height: 22px;
-        cursor: pointer;
-        opacity: 0.5;
-        color: rgb(0, 0, 0);
       }
     }
   }
