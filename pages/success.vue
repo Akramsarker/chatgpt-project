@@ -4,17 +4,30 @@
       <div class="congrats-section">
         <div class="congrats-card">
           <div class="image-container">
-            <img :src="user.photoURL" alt="Profile Picture" />
+            <img
+              v-if="user.photoURL"
+              :src="user.photoURL"
+              alt="Profile Picture"
+            />
+            <img
+              v-else
+              src="https://deejayfarm.com/wp-content/uploads/2019/10/Profile-pic.jpg"
+              alt="Avatar"
+            />
           </div>
           <p class="welcome-message">Welcome!</p>
-          <span class="display-name">{{ user.displayName }}</span>
+          <span v-if="user.displayName" class="display-name">{{
+            user.displayName
+          }}</span>
         </div>
         <div class="congrats-info">
           <h2 class="congrats-message">Congratulations!</h2>
           <h2 class="congrats-message m-t">Account Created</h2>
         </div>
         <div class="btn-container">
-          <nuxt-link to="/chat-app" class="btn">Go To Chat Page</nuxt-link>
+          <nuxt-link to="/chat-app" class="btn-primary"
+            >Go To Chat Page</nuxt-link
+          >
         </div>
       </div>
     </div>
@@ -32,7 +45,7 @@ export default {
   },
   computed: {
     user() {
-      return this.$store.state.user
+      return this.$store.state.user || {}
     },
   },
   methods: {},
@@ -40,11 +53,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~/styles/style.scss';
 .container {
   position: relative;
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto auto auto;
+  font-family: $font-primary;
 }
 
 .container::before {
@@ -84,8 +99,8 @@ export default {
         background-color: #ffffff;
         border-radius: 50%;
         img {
-          width: 50px;
-          height: 50px;
+          width: 80px;
+          height: 80px;
           border-radius: 50%;
         }
       }
@@ -115,18 +130,6 @@ export default {
     }
     .btn-container {
       margin-top: 3rem;
-      .btn {
-        background: rgb(255, 255, 255);
-        border-radius: 23px;
-        padding: 0.8rem 2.8rem;
-        outline: none;
-        border: none;
-        cursor: pointer;
-        font-size: 18px;
-        font-weight: 700;
-        line-height: 22px;
-        color: rgb(0, 0, 0);
-      }
     }
   }
 }
