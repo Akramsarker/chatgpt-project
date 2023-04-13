@@ -1,12 +1,15 @@
 <template>
   <div class="container">
-    <div class="sign-in-container">
+    <div class="sign-up-container">
       <p v-if="error" class="error-message">
         {{ error }}
       </p>
       <div class="anima-section">
         <div class="avatar-card">
-          <img src="~/static/avatar.png" alt="Avatar" />
+          <img
+            src="https://deejayfarm.com/wp-content/uploads/2019/10/Profile-pic.jpg"
+            alt="Avatar"
+          />
         </div>
         <div class="sign-up-header">
           <h1 class="header-name">Create Account</h1>
@@ -15,7 +18,7 @@
             get access to conversations on other devices
           </p>
         </div>
-        <div class="sign-in-field">
+        <div class="sign-up-field">
           <div class="input-field">
             <input v-model="email" type="email" placeholder="Email" />
           </div>
@@ -31,7 +34,11 @@
           </div>
         </div>
         <div class="sign-in-btn">
-          <button class="sign-in" @click="signUpWithEmail">
+          <button
+            :disabled="email == '' || password == '' || repeatPassword == ''"
+            class="btn-primary"
+            @click="signUpWithEmail"
+          >
             Create Account
           </button>
         </div>
@@ -48,21 +55,34 @@ export default {
     return {
       email: '',
       password: '',
+      repeatPassword: '',
       error: '',
     }
   },
   methods: {
     signUpWithEmail() {
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(this.email, this.password)
-        .then((data) => {
-          this.$router.push({ name: 'success' })
-          this.confetty()
-        })
-        .catch((error) => {
-          this.error = error.message
-        })
+      if (this.checkPassword()) {
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(this.email, this.password)
+          .then((data) => {
+            this.$router.push({ name: 'success' })
+            this.confetty()
+          })
+          .catch((error) => {
+            this.error = error.message
+          })
+      }
+    },
+    checkPassword() {
+      if (this.password === this.repeatPassword) {
+        return true
+      } else {
+        this.error = 'Please Input Same Password'
+        this.password = ''
+        this.repeatPassword = ''
+        return false
+      }
     },
     confetty() {
       const confetti = new JSConfetti()
@@ -119,8 +139,8 @@ export default {
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto auto auto;
+  font-family: $font-primary;
 }
-
 .container::before {
   background: #0a0a0d;
   content: '';
@@ -134,7 +154,7 @@ export default {
   background-size: 1400px;
 }
 
-.sign-in-container {
+.sign-up-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -162,7 +182,7 @@ export default {
     .sign-up-header {
       .header-name {
         line-height: 36px;
-        font-weight: 600;
+        font-weight: 500;
         font-size: 33px;
         color: rgb(255, 255, 255);
       }
@@ -172,21 +192,7 @@ export default {
         line-height: 19.2px;
         font-size: 16px;
         margin-bottom: 3rem;
-      }
-    }
-    .sign-in-btn {
-      .sign-in {
-        background-color: rgb(255, 255, 255);
-        border-radius: 50px;
-        padding: 0.7rem 2.2rem;
-        outline: none;
-        border: none;
-        font-size: 18px;
-        font-weight: 700;
-        line-height: 22px;
-        cursor: pointer;
-        opacity: 0.5;
-        color: rgb(0, 0, 0);
+        font-weight: 400;
       }
     }
   }
