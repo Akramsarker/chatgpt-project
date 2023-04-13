@@ -18,16 +18,28 @@
   }
 }
 .btn-primary {
-  color: #f8f8f8;
-  background-color: #7188f9;
+  background: #ffffff;
+  padding: 0.7rem 2.2rem;
+  outline: none;
+  border: none;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 22px;
+  border-radius: 50px;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  color: rgb(0, 0, 0);
   transition: all 0.3s;
-
-  &:hover,
-  &:active {
-    background-color: rgba(#7188f9, 0.8);
+  &:disabled{
+    background-color: rgb(255, 255, 255);
+    opacity: 0.5;
+  }
+  &:hover
+  {
+    background-color: rgb(255, 255, 255);
+    opacity: 0.6;
   }
 }
-
 .btn-secondary {
   color: #394149;
   background-color: $color-secondary;
@@ -38,21 +50,17 @@
     background-color: $color-secondary-hover;
   }
 }
-
 // .btn-tertiary {
 //   &:hover,
 //   &:active {
 
 //   }
 // }
-
 // .btn-quarternary {
-
 // }
-
 // .btn-sm {
-
 // }
+
 input[type='text'],
 input[type='number'],
 input[type='password'],
