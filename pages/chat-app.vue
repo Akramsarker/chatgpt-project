@@ -18,14 +18,13 @@
         </div>
       </div>
       <div class="chatting-section">
-        <div class="chatting-container">
-          <div v-for="message in messages" :key="message.id" class="chating">
-            <!-- <p v-if="isLoading">Please Wait...</p> -->
+        <div v-scroll-to-bottom class="chatting-container">
+          <div v-for="message in messages" :key="message.id" class="chatting">
             <pre v-if="message.text" class="ai-text">{{ message.text }}</pre>
-            <pre v-if="message.userMessage" class="user-text"
-              >{{ message.userMessage }}
-         </pre
-            >
+            <pre v-if="message.userMessage" class="user-text">{{
+              message.userMessage
+            }}</pre>
+            <p class="message-time">{{ prettyDate(message.createdAt) }}</p>
           </div>
         </div>
         <div class="input">
@@ -34,7 +33,7 @@
             placeholder="Send a message..."
             type="text"
           />
-          <button @click="chat">
+          <button class="btn-primary custom-border-radius" @click="chat">
             {{ isLoading ? 'Submitting...' : 'Submit' }}
           </button>
         </div>
@@ -45,34 +44,37 @@
 
 <script>
 import { OpenAIApi, Configuration } from 'openai'
+import scrollToBottom from '~/directives/scroll-to-bottom'
 export default {
+  directives: { scrollToBottom },
   data() {
     return {
       userMessage: '',
-      messages: [
-        { type: 'user', userMessage: 'hello' },
-        { type: 'system', text: 'Hello! How may I assist you today?' },
-        { type: 'user', userMessage: 'What is your name?' },
-        {
-          type: 'system',
-          text: "I'm an AI language model created by OpenAI, so I don't have a name like a human does. However, you can call me OpenAI if you'd like!",
-        },
-        { type: 'user', userMessage: 'Where are you from?' },
-        {
-          type: 'system',
-          text: 'As an AI language model, I do not have a specific location or country of origin. I exist in the digital world and can be accessed from anywhere with an internet connection.',
-        },
-        { type: 'user', userMessage: 'Tall me about yourself?' },
-        {
-          type: 'system',
-          text: 'As an AI language model, I do not have a personal life or experiences like humans do. However, I am designed to assist with various tasks such as answering questions, creating content, and providing support. My primary focus is to provide accurate and helpful responses based on the input I receive.',
-        },
-      ],
+      // messages: [
+      //   { type: 'user', userMessage: 'hello' },
+      //   { type: 'system', text: 'Hello! How may I assist you today?' },
 
+      //   { type: 'user', userMessage: 'What is your name?' },
+      //   {
+      //     type: 'system',
+      //     text: "I'm an AI language model created by OpenAI, so I don't have a name like a human does. However, you can call me OpenAI if you'd like!",
+      //   },
+      //   { type: 'user', userMessage: 'Where are you from?' },
+      //   {
+      //     type: 'system',
+      //     text: 'As an AI language model, I do not have a specific location or country of origin. I exist in the digital world and can be accessed from anywhere with an internet connection.',
+      //   },
+      //   { type: 'user', userMessage: 'Tall me about yourself?' },
+      //   {
+      //     type: 'system',
+      //     text: 'As an AI language model, I do not have a personal life or experiences like humans do. However, I am designed to assist with various tasks such as answering questions, creating content, and providing support. My primary focus is to provide accurate and helpful responses based on the input I receive.',
+      //   },
+      // ],
+      messages: [],
       isLoading: false,
       openAi: new OpenAIApi(
         new Configuration({
-          apiKey: `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`,
+          apiKey: `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`,
         })
       ),
     }
@@ -82,36 +84,89 @@ export default {
       return this.$store.state.user || {}
     },
   },
+  mounted() {
+    this.getLocalstoreValue()
+  },
   methods: {
-    chat() {
-      this.isLoading = true
+    // chat() {
+    //   this.isLoading = true
+    //   this.messages.push({
+    //     type: 'user',
+    //     userMessage: this.userMessage,
+    //   })
+    //   this.openAi
+    //     .createChatCompletion({
+    //       model: 'gpt-3.5-turbo',
+    //       messages: [{ role: 'user', content: this.userMessage }],
+    //     })
+    //     .then((res) => {
+    //       const replay = res.data.choices[0].message.content
+    //       this.isLoading = false
+    //       this.messages.push({
+    //         type: 'system',
+    //         text: replay,
+    //       })
+    //     })
+    //   this.userMessage = ''
+    // },
+    async chat() {
       this.messages.push({
         type: 'user',
+        createdAt: Date.now(),
         userMessage: this.userMessage,
       })
-      this.openAi
-        .createChatCompletion({
+      try {
+        this.isLoading = true
+        const res = await this.openAi.createChatCompletion({
           model: 'gpt-3.5-turbo',
           messages: [{ role: 'user', content: this.userMessage }],
         })
-        .then((res) => {
-          const replay = res.data.choices[0].message.content
-          this.isLoading = false
-          this.messages.push({
-            type: 'system',
-            text: replay,
-          })
+        const replay = res.data.choices[0].message.content
+        this.messages.push({
+          type: 'system',
+          text: replay,
         })
+        localStorage.setItem('messages', JSON.stringify(this.messages))
+      } catch (error) {
+        console.error(error)
+      } finally {
+        this.isLoading = false
+      }
       this.userMessage = ''
+    },
+    getLocalstoreValue() {
+      const messages = JSON.parse(localStorage.getItem('messages'))
+      this.messages = messages || []
+      console.log(JSON.parse(localStorage.getItem('myArray')))
+    },
+    prettyDate(time) {
+      const diff = (new Date().getTime() - time) / 1000
+      const dayDiff = Math.floor(diff / 86400)
+
+      if (isNaN(dayDiff) || dayDiff < 0 || dayDiff >= 31) return
+
+      return (
+        (dayDiff === 0 &&
+          ((diff < 60 && 'Just Now') ||
+            (diff < 120 && '1 minute ago') ||
+            (diff < 3600 && Math.floor(diff / 60) + ' Minutes Ago') ||
+            (diff < 7200 && '1 hour ago') ||
+            (diff < 86400 && Math.floor(diff / 3600) + ' Hours Ago'))) ||
+        (dayDiff === 1 && 'Yesterday') ||
+        (dayDiff < 7 && dayDiff + ' Days Ago') ||
+        (dayDiff < 31 && Math.ceil(dayDiff / 7) + ' Weeks Ago')
+      )
     },
   },
 }
 </script>
-
 <style lang="scss" scoped>
+@import '~/styles/style.scss';
+
 .container {
   width: 100vw;
   height: 100vh;
+  font-family: $font-primary;
 }
 .container::before {
   background: #0a0a0d;
@@ -124,6 +179,10 @@ export default {
   background-repeat: no-repeat;
   background-position: center top, center bottom;
   background-size: 1400px;
+}
+.chat-image {
+  width: 20px;
+  height: 20px;
 }
 .main {
   position: relative;
@@ -165,24 +224,27 @@ export default {
     }
   }
   .chatting-section {
-    width: 85%;
-    margin: auto;
+    width: 95%;
+    max-width: 1000px;
+    margin: 0 auto;
     .input {
-      width: 85%;
+      width: 100%;
       display: grid;
-      grid-template-columns: 95% 1fr;
+      grid-template-columns: 1fr auto;
+      grid-column-gap: 1rem;
       ::placeholder {
         color: white;
         opacity: 0.3;
       }
-
+      .custom-border-radius {
+        border-radius: 12px;
+      }
       input {
         padding: 1rem;
-        width: 98%;
-        background: #20232b;
+        width: 100%;
+        background: #2e333f;
         border: none;
         color: white;
-        font-family: 'Montserrat', sans-serif;
         padding: 15px;
         border-radius: 12px;
         outline: none;
@@ -195,28 +257,24 @@ export default {
 
         margin-right: 0.7rem;
       }
-
-      button {
-        display: inline-block;
-        background: #009d34;
-        outline: none;
-        border: none;
-        width: 120px;
-        height: 50px;
-        font-size: 1rem;
-        border-radius: 12px;
-        transition: 0.4s;
-        padding: 10px;
-      }
     }
     .chatting-container {
       height: 500px;
       overflow: auto;
       margin-bottom: 1rem;
-      .chating {
+      @media screen and (max-width: 850px) {
+        height: 400px;
+      }
+      .message-time {
+        display: flex;
+        justify-content: flex-end;
+        font-size: 13px;
+      }
+      .chatting {
         position: relative;
         display: flex;
         flex-direction: column;
+        margin-right: 10px;
         pre {
           font-family: 'Montserrat', sans-serif;
           text-align: left;
@@ -224,17 +282,17 @@ export default {
         }
 
         .user-text {
-          background: #009d34;
+          background: #009d34c6;
           border-radius: 12px;
           border-top-right-radius: 2px;
           margin: 0px 0px 0px auto;
           max-width: 85%;
-          padding: 10px;
+          padding: 15px;
           word-break: break-word;
           white-space: pre-wrap;
           line-height: 120%;
           margin-top: 0.7rem;
-          margin-bottom: 0.7rem;
+          margin-bottom: 0.3rem;
         }
 
         .ai-text {
