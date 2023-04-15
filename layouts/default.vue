@@ -2,7 +2,6 @@
   <div class="main-app-container">
     <AppHeader />
     <nuxt class="page-container" />
-    <AppFooter />
   </div>
 </template>
 
