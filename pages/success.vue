@@ -91,6 +91,7 @@ export default {
       width: 240px;
       border-radius: 50%;
       background-color: rgba(255, 255, 255, 0.15);
+      margin: auto;
       .image-container {
         display: flex;
         flex-direction: column;
