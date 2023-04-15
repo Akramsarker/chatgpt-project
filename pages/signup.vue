@@ -39,7 +39,7 @@
             class="btn-primary"
             @click="signUpWithEmail"
           >
-            Create Account
+            {{ isLoading ? 'Creating Account...' : 'Create Account' }}
           </button>
         </div>
       </div>
@@ -57,21 +57,26 @@ export default {
       password: '',
       repeatPassword: '',
       error: '',
+      isLoading: false,
     }
   },
   methods: {
-    signUpWithEmail() {
+    async signUpWithEmail() {
       if (this.checkPassword()) {
-        firebase
-          .auth()
-          .createUserWithEmailAndPassword(this.email, this.password)
-          .then((data) => {
-            this.$router.push({ name: 'success' })
-            this.confetty()
-          })
-          .catch((error) => {
-            this.error = error.message
-          })
+        try {
+          this.isLoading = true
+          await firebase
+            .auth()
+            .createUserWithEmailAndPassword(this.email, this.password)
+            .then((data) => {
+              this.$router.push({ name: 'success' })
+              this.confetty()
+            })
+        } catch (error) {
+          this.error = error.message
+        } finally {
+          this.isLoading = false
+        }
       }
     },
     checkPassword() {

@@ -59,7 +59,7 @@
               :disabled="email == '' || password == ''"
               @click="signInWithEmail"
             >
-              Log In
+              {{ isLoading ? 'Log Ing...' : 'Log In' }}
             </button>
           </div>
           <div class="router-link-btn">
@@ -82,23 +82,28 @@ export default {
       email: '',
       password: '',
       error: '',
+      isLoading: false,
     }
   },
   methods: {
-    signInWithEmail() {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(this.email, this.password)
-        .then((data) => {
-          const email = data.user.email
-          this.$store.commit('setUserEmail', email)
-          this.$router.push({ name: 'success' })
-          this.confetty()
-        })
-        .catch(() => {
-          this.error =
-            'Sorry, the email address and/or password are not correct. Try again or reset your password.'
-        })
+    async signInWithEmail() {
+      try {
+        this.isLoading = true
+        await firebase
+          .auth()
+          .signInWithEmailAndPassword(this.email, this.password)
+          .then((data) => {
+            const email = data.user.email
+            this.$store.commit('setUserEmail', email)
+            this.$router.push({ name: 'success' })
+            this.confetty()
+          })
+      } catch (error) {
+        this.error =
+          'Sorry, the email address and/or password are not correct. Try again or reset your password.'
+      } finally {
+        this.isLoading = false
+      }
     },
     signInWithGoogle() {
       const provider = new firebase.auth.GoogleAuthProvider()
