@@ -12,9 +12,15 @@ export default {}
 @charset "UTF-8";
 .spinner {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  height: 50px;
+  height: 44px;
+  margin-top: 0.5rem;
+  background: #20232b;
+  width: 100px;
+  padding-left: 1.6rem;
+  border-radius: 12px;
+  border-bottom-left-radius: 2px;
 }
 .dot-pulse {
   position: relative;
@@ -22,9 +28,9 @@ export default {}
   width: 10px;
   height: 10px;
   border-radius: 5px;
-  background-color: #9880ff;
-  color: #9880ff;
-  box-shadow: 9999px 0 0 -5px #9880ff;
+  background-color: #009d34c6;
+  color: #009d34c6;
+  box-shadow: 9999px 0 0 -5px #009d34c6;
   -webkit-animation: dot-pulse 1.5s infinite linear;
   animation: dot-pulse 1.5s infinite linear;
   -webkit-animation-delay: 0.25s;
@@ -40,12 +46,12 @@ export default {}
   width: 10px;
   height: 10px;
   border-radius: 5px;
-  background-color: #9880ff;
-  color: #9880ff;
+  background-color: #009d34c6;
+  color: #009d34c6;
 }
 
 .dot-pulse::before {
-  box-shadow: 9984px 0 0 -5px #9880ff;
+  box-shadow: 9984px 0 0 -5px #009d34c6;
   -webkit-animation: dot-pulse-before 1.5s infinite linear;
   animation: dot-pulse-before 1.5s infinite linear;
   -webkit-animation-delay: 0s;
@@ -53,7 +59,7 @@ export default {}
 }
 
 .dot-pulse::after {
-  box-shadow: 10014px 0 0 -5px #9880ff;
+  box-shadow: 10014px 0 0 -5px #009d34c6;
   -webkit-animation: dot-pulse-after 1.5s infinite linear;
   animation: dot-pulse-after 1.5s infinite linear;
   -webkit-animation-delay: 0.5s;
@@ -62,79 +68,79 @@ export default {}
 
 @-webkit-keyframes dot-pulse-before {
   0% {
-    box-shadow: 9984px 0 0 -5px #9880ff;
+    box-shadow: 9984px 0 0 -5px #009d34c6;
   }
   30% {
-    box-shadow: 9984px 0 0 2px #9880ff;
+    box-shadow: 9984px 0 0 2px #009d34c6;
   }
   60%,
   100% {
-    box-shadow: 9984px 0 0 -5px #9880ff;
+    box-shadow: 9984px 0 0 -5px #009d34c6;
   }
 }
 
 @keyframes dot-pulse-before {
   0% {
-    box-shadow: 9984px 0 0 -5px #9880ff;
+    box-shadow: 9984px 0 0 -5px #009d34c6;
   }
   30% {
-    box-shadow: 9984px 0 0 2px #9880ff;
+    box-shadow: 9984px 0 0 2px #009d34c6;
   }
   60%,
   100% {
-    box-shadow: 9984px 0 0 -5px #9880ff;
+    box-shadow: 9984px 0 0 -5px #009d34c6;
   }
 }
 
 @-webkit-keyframes dot-pulse {
   0% {
-    box-shadow: 9999px 0 0 -5px #9880ff;
+    box-shadow: 9999px 0 0 -5px #009d34c6;
   }
   30% {
-    box-shadow: 9999px 0 0 2px #9880ff;
+    box-shadow: 9999px 0 0 2px #009d34c6;
   }
   60%,
   100% {
-    box-shadow: 9999px 0 0 -5px #9880ff;
+    box-shadow: 9999px 0 0 -5px #009d34c6;
   }
 }
 
 @keyframes dot-pulse {
   0% {
-    box-shadow: 9999px 0 0 -5px #9880ff;
+    box-shadow: 9999px 0 0 -5px #009d34c6;
   }
   30% {
-    box-shadow: 9999px 0 0 2px #9880ff;
+    box-shadow: 9999px 0 0 2px #009d34c6;
   }
   60%,
   100% {
-    box-shadow: 9999px 0 0 -5px #9880ff;
+    box-shadow: 9999px 0 0 -5px #009d34c6;
   }
 }
 
 @-webkit-keyframes dot-pulse-after {
   0% {
-    box-shadow: 10014px 0 0 -5px #9880ff;
+    box-shadow: 10014px 0 0 -5px #009d34c6;
   }
   30% {
-    box-shadow: 10014px 0 0 2px #9880ff;
+    box-shadow: 10014px 0 0 2px #009d34c6;
   }
   60%,
   100% {
-    box-shadow: 10014px 0 0 -5px #9880ff;
+    box-shadow: 10014px 0 0 -5px #009d34c6;
   }
 }
 
 @keyframes dot-pulse-after {
   0% {
-    box-shadow: 10014px 0 0 -5px #9880ff;
+    box-shadow: 10014px 0 0 -5px #009d34c6;
   }
   30% {
-    box-shadow: 10014px 0 0 2px #9880ff;
+    box-shadow: 10014px 0 0 2px #009d34c6;
   }
   60%,
   100% {
-    box-shadow: 10014px 0 0 -5px #9880ff;
+    box-shadow: 10014px 0 0 -5px #009d34c6;
   }
 }
 </style>
