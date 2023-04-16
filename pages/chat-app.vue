@@ -39,7 +39,7 @@
           />
           <button
             class="btn-primary custom-border-radius"
-            :disabled="userMessage == ''"
+            :disabled="userMessage === ''"
             @click="generateResponse"
           >
             Submit
@@ -84,7 +84,7 @@ export default {
       isLoading: false,
       openAi: new OpenAIApi(
         new Configuration({
-          apiKey: `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`,
+          apiKey: `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`,
         })
       ),
     }
@@ -127,6 +127,7 @@ export default {
       })
       try {
         this.isLoading = true
+        this.userMessage = ''
         const res = await this.openAi.createChatCompletion({
           model: 'gpt-3.5-turbo',
           messages: [{ role: 'user', content: this.userMessage }],
@@ -142,12 +143,10 @@ export default {
       } finally {
         this.isLoading = false
       }
-      this.userMessage = ''
     },
     getLocalstoreValue() {
       const messages = JSON.parse(localStorage.getItem('messages'))
       this.messages = messages || []
-      console.log(JSON.parse(localStorage.getItem('myArray')))
     },
     prettyDate(time) {
       const diff = (new Date().getTime() - time) / 1000
