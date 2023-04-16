@@ -26,15 +26,23 @@
             }}</pre>
             <p class="message-time">{{ prettyDate(message.createdAt) }}</p>
           </div>
+          <div v-if="isLoading" class="loading-spinner">
+            <loading-spinner></loading-spinner>
+          </div>
         </div>
         <div class="input">
           <input
             v-model="userMessage"
             placeholder="Send a message..."
             type="text"
+            @keyup.enter="generateResponse"
           />
-          <button class="btn-primary custom-border-radius" @click="chat">
-            {{ isLoading ? 'Submitting...' : 'Submit' }}
+          <button
+            class="btn-primary custom-border-radius"
+            :disabled="userMessage == ''"
+            @click="generateResponse"
+          >
+            Submit
           </button>
         </div>
       </div>
@@ -45,7 +53,9 @@
 <script>
 import { OpenAIApi, Configuration } from 'openai'
 import scrollToBottom from '~/directives/scroll-to-bottom'
+import loadingSpinner from '~/components/loading-spinner.vue'
 export default {
+  components: { loadingSpinner },
   directives: { scrollToBottom },
   data() {
     return {
@@ -74,7 +84,7 @@ export default {
       isLoading: false,
       openAi: new OpenAIApi(
         new Configuration({
-          apiKey: `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`,
+          apiKey: `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`,
         })
       ),
     }
@@ -109,7 +119,7 @@ export default {
     //     })
     //   this.userMessage = ''
     // },
-    async chat() {
+    async generateResponse() {
       this.messages.push({
         type: 'user',
         createdAt: Date.now(),
@@ -268,7 +278,7 @@ export default {
       .message-time {
         display: flex;
         justify-content: flex-end;
-        font-size: 13px;
+        font-size: 11px;
       }
       .chatting {
         position: relative;
