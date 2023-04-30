@@ -84,7 +84,7 @@ export default {
       isLoading: false,
       openAi: new OpenAIApi(
         new Configuration({
-          apiKey: `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`,
+          apiKey: `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`,
         })
       ),
     }
@@ -98,27 +98,6 @@ export default {
     this.getLocalstoreValue()
   },
   methods: {
-    // chat() {
-    //   this.isLoading = true
-    //   this.messages.push({
-    //     type: 'user',
-    //     userMessage: this.userMessage,
-    //   })
-    //   this.openAi
-    //     .createChatCompletion({
-    //       model: 'gpt-3.5-turbo',
-    //       messages: [{ role: 'user', content: this.userMessage }],
-    //     })
-    //     .then((res) => {
-    //       const replay = res.data.choices[0].message.content
-    //       this.isLoading = false
-    //       this.messages.push({
-    //         type: 'system',
-    //         text: replay,
-    //       })
-    //     })
-    //   this.userMessage = ''
-    // },
     async generateResponse() {
       this.messages.push({
         type: 'user',
