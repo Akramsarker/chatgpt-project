@@ -84,7 +84,7 @@ export default {
       isLoading: false,
       openAi: new OpenAIApi(
         new Configuration({
-          apiKey: `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`,
+          apiKey: `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`,
         })
       ),
     }
@@ -106,11 +106,12 @@ export default {
       })
       try {
         this.isLoading = true
-        this.userMessage = ''
         const res = await this.openAi.createChatCompletion({
           model: 'gpt-3.5-turbo',
           messages: [{ role: 'user', content: this.userMessage }],
         })
+        this.userMessage = ''
+
         const replay = res.data.choices[0].message.content
         this.messages.push({
           type: 'system',
