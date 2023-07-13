@@ -84,15 +84,15 @@ export default {
       isLoading: false,
       openAi: new OpenAIApi(
         new Configuration({
-          apiKey: `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`,
+          apiKey: `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`
         })
-      ),
+      )
     }
   },
   computed: {
     user() {
       return this.$store.state.user || {}
-    },
+    }
   },
   mounted() {
     this.getLocalstoreValue()
@@ -102,20 +102,20 @@ export default {
       this.messages.push({
         type: 'user',
         createdAt: Date.now(),
-        userMessage: this.userMessage,
+        userMessage: this.userMessage
       })
       try {
         this.isLoading = true
         const res = await this.openAi.createChatCompletion({
           model: 'gpt-3.5-turbo',
-          messages: [{ role: 'user', content: this.userMessage }],
+          messages: [{ role: 'user', content: this.userMessage }]
         })
         this.userMessage = ''
 
         const replay = res.data.choices[0].message.content
         this.messages.push({
           type: 'system',
-          text: replay,
+          text: replay
         })
         localStorage.setItem('messages', JSON.stringify(this.messages))
       } catch (error) {
@@ -145,8 +145,8 @@ export default {
         (dayDiff < 7 && dayDiff + ' Days Ago') ||
         (dayDiff < 31 && Math.ceil(dayDiff / 7) + ' Weeks Ago')
       )
-    },
-  },
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -237,9 +237,9 @@ export default {
         padding: 15px;
         border-radius: 12px;
         outline: none;
-        border: 1px solid #1d1d1d;
+        border: 1px solid transparent;
         margin: 0;
-
+        transition: all 0.2s;
         &:focus {
           border: 1px solid #464646;
         }
